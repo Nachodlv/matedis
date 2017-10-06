@@ -41,4 +41,13 @@ public class StateImpl implements State {
     public void setLabel(String label){
         this.label = label;
     }
+
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    public HashMap<Character, State> getTransitions() {
+        return transitions;
+    }
 }

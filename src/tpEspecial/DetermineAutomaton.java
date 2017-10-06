@@ -27,7 +27,7 @@ public class DetermineAutomaton {
         }
     }
 
-    public static StateNDA merge(List<State> list){
+    private static StateNDA merge(List<State> list){
         StateNDA state = new StateNDA();
         for (int i=0; i<list.size(); i++){
             for (int j=0; j<256; j++){
@@ -40,7 +40,4 @@ public class DetermineAutomaton {
         return state;
     }
 
-    public static State convert(State automaton){
-
-    }
 }

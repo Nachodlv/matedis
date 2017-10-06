@@ -1,5 +1,7 @@
 package tpEspecial;
 
+import org.w3c.dom.ls.LSInput;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +47,18 @@ public class StateNDA implements State{
 
     public void setLabel(String label){
         this.label = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    public List<State> getTransitions() {
+        return transitions;
+    }
+
+    public List<Character> getKeys() {
+        return keys;
     }
 }

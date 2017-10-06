@@ -10,11 +10,15 @@ public class Main {
 
     public static void main(String[] args) {
         Reader reader = new Reader();
-        List<String> list = reader.readFile("src/tpEspecial/test.txt", new HashMap<>());
+        List<String> list = reader.readFile("src/tpEspecial/words.txt", new HashMap<>());
         State initial = CreateAutomata.createAutomata(list);
         System.out.println("Nice");
 
-        State deterministic = DetermineAutomaton.determine(initial);
+        /*State deterministic = DetermineAutomaton.determine(initial);
         System.out.println("Not really");
+        */
+
+        new Grapher().graphNDA(initial);
+
     }
 }
