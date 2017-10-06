@@ -8,7 +8,7 @@ import java.util.List;
 public class CreateAutomata {
 
     public static State createAutomata(List<String> phrases) {
-        StateNDA head = new StateNDA(false);
+        StateNDA head = new StateNDA();
         for (int i = 0; i < phrases.size(); i++) {
             addPhrase(phrases.get(i),head);
         }

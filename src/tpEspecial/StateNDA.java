@@ -14,10 +14,12 @@ public class StateNDA implements State{
 
     private final boolean acceptance;
 
-    public StateNDA(boolean acceptance){
+    private String label;
+
+    public StateNDA(){
         transitions = new ArrayList<>();
         keys = new ArrayList<>();
-        this.acceptance = acceptance;
+        this.acceptance = false;
     }
 
     public State transition(char character){
@@ -39,5 +41,9 @@ public class StateNDA implements State{
 
     public boolean isAcceptance(){
         return acceptance;
+    }
+
+    public void setLabel(String label){
+        this.label = label;
     }
 }
