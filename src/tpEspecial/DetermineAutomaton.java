@@ -18,16 +18,16 @@ public class DetermineAutomaton {
         for (int i=0; i<256; i++){
             List<State> list = state.transitions((char) i);
             if (list.size() != 0){
-                list.add(state);
+                list.add(head);
                 //deterministic.addTransition(merge(list), (char) i), deterministic);
                 StateNDA newState = merge(list);
-                deterministic.addTransition(newState, (char) i);
                 determine(newState, deterministic, head);
+                deterministic.addTransition(newState, (char) i);
             }
         }
     }
 
-    private static StateNDA merge(List<State> list){
+    public static StateNDA merge(List<State> list){
         StateNDA state = new StateNDA();
         for (int i=0; i<list.size(); i++){
             for (int j=0; j<256; j++){
@@ -39,5 +39,4 @@ public class DetermineAutomaton {
         }
         return state;
     }
-
 }
