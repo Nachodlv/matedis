@@ -47,6 +47,7 @@ public class Reader {
                 char character = (char) read;
                 word += character;
                 currentState = countChar(currentState, character);
+                if(currentState == null) currentState = automata;
                 if(currentState.isAcceptance()){
                     Integer value = words.put(word, 1);
                     words.put(word, value + 1);
@@ -60,7 +61,6 @@ public class Reader {
 
     private State countChar(State automata, char character){
         State state = automata.transition(character);
-        if(state == null) throw new IndexOutOfBoundsException();
         return state;
     }
 }

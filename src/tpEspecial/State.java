@@ -16,4 +16,6 @@ public interface State {
     public boolean isAcceptance();
 
     public void setLabel(String label);
+
+    public String getLabel();
 }
