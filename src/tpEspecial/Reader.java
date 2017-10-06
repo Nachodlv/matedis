@@ -20,7 +20,7 @@ public class Reader {
                     list.add(line);
                     hashMap.put(line, 0);
                 }
-
+                line = br.readLine();
             }
 
         } catch (IOException e) {
