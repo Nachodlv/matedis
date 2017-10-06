@@ -3,9 +3,6 @@ package tpEspecial;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Ignacio on 06/10/2017.
- */
 public class Main {
 
     public static void main(String[] args) {
@@ -18,6 +15,7 @@ public class Main {
         System.out.println("Not really");
         */
 
+        //dot -Tjpg grafoNDA.txt -o ejemplo.jpg --> transform grafoNDA.txt to a .jpg
         new Grapher().graphNDA(initial);
 
     }
