@@ -5,7 +5,9 @@ package tpEspecial;
  */
 public interface State {
 
-    public State transitions(char character);
+    public State transition(char character);
 
     public void addTransition(State transition, char character);
+
+    public boolean isAcceptance();
 }
