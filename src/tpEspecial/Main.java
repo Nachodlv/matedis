@@ -7,20 +7,22 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        /*
         Reader reader = new Reader();
         List<String> list = reader.readFile("src/tpEspecial/words.txt", new HashMap<>());
-        State initial = CreateAutomata.createAutomata(list);
+        StateNDA initial = CreateAutomata.createAutomata(list);
         System.out.println("Nice");
 
         /*State deterministic = DetermineAutomaton.determine(initial);
         System.out.println("Not really");
-
+        */
 
         //dot -Tjpg grafoNDA.txt -o ejemplo.jpg --> transform grafoNDA.txt to a .jpg
         new Grapher().graphNDA(initial);
-        */
+        State determinado = DetermineAutomaton.determine(initial);
+        new Grapher().graphDA(determinado);
+
         testWriteIndexFile();
+
     }
 
     public static void testWriteIndexFile(){

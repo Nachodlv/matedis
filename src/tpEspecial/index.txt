@@ -1,8 +1,24 @@
 como
+HtmlFile1.txt
+2
+HtmlFile3.txt
+2
 
 como estas
+HtmlFile1.txt
+1
+HtmlFile3.txt
+1
 
 me gusta
+HtmlFile3.txt
+1
 
 hola
+HtmlFile1.txt
+1
+HtmlFile2.txt
+1
+HtmlFile3.txt
+3
 

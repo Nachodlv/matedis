@@ -11,7 +11,13 @@ public interface State {
 
     public List<State> transitions(char character);
 
-    public void addTransition(State transition, char character);
+    /**
+     *
+     * @param transition
+     * @param character
+     * @return false if the character is already in the transitions, true if the adding was successful
+     */
+    public boolean addTransition(State transition, char character);
 
     public boolean isAcceptance();
 
@@ -19,5 +25,6 @@ public interface State {
 
     public String getLabel();
 
+    public void setAcceptance(boolean acceptance);
 
 }

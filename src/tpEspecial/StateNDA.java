@@ -14,7 +14,7 @@ public class StateNDA implements State{
 
     private final List<Character> keys;
 
-    private final boolean acceptance;
+    private boolean acceptance;
 
     private String label;
 
@@ -28,9 +28,10 @@ public class StateNDA implements State{
         return null;
     }
 
-    public void addTransition(State transition, char character){
+    public boolean addTransition(State transition, char character){
         transitions.add(transition);
         keys.add(character);
+        return true;
     }
 
     public List<State> transitions(char character){
@@ -52,6 +53,11 @@ public class StateNDA implements State{
     @Override
     public String getLabel() {
         return label;
+    }
+
+    @Override
+    public void setAcceptance(boolean acceptance) {
+        this.acceptance = acceptance;
     }
 
     public List<State> getTransitions() {
