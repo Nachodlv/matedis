@@ -1,13 +1,12 @@
 package tpEspecial;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
-public class Reader {
+public class    Reader {
 
     public List<String> readFile(String filename, HashMap<String, Integer> hashMap){
         List<String> list = new ArrayList<>();
@@ -22,7 +21,7 @@ public class Reader {
                 }
                 line = br.readLine();
             }
-
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,13 +53,63 @@ public class Reader {
                 }
                 read = fileReader.read();
             }
+            fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void readHTML1(String filename, HashMap<String, Integer> words, State automata){
+        int random = (int)(Math.random()*10);
+        for (String word : words.keySet()) {
+            System.out.println(word+": "+random);
+            words.put(word,random);
+            random = (int)(Math.random()*10);
         }
     }
 
     private State countChar(State automata, char character){
         State state = automata.transition(character);
         return state;
+    }
+
+    public void writeIndexFile(File directory, String filenameTxt){
+        HashMap<String, Integer> words = new HashMap<>();
+        final List<String> wordsList = readFile(filenameTxt, words);
+        final State automata = CreateAutomata.createAutomata(wordsList);
+
+        List<HashMap<String, Integer>> hashMapList = new ArrayList<>();
+        final File[] files = directory.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            HashMap<String, Integer> wordsInFile = new HashMap<>(words);//para que no cambie words
+            readHTML("src/tpEspecial/"+directory.getName()+"/"+files[i].getName(),wordsInFile,automata);
+            hashMapList.add(wordsInFile);
+        }
+
+        FileWriter fw;
+        BufferedWriter bw;
+        try {
+            fw = new FileWriter("src/tpEspecial/index.txt");
+            bw = new BufferedWriter(fw);
+            for (String word : words.keySet()){
+                bw.write(word);
+                bw.newLine();
+                for (int i = 0; i < hashMapList.size(); i++) {
+                    HashMap<String, Integer> hashMap = hashMapList.get(i);
+                    final int repetitions = hashMap.get(word);
+                    if (repetitions!=0){
+                        bw.write(files[i].getName());
+                        bw.newLine();
+                        bw.write(String.valueOf(repetitions));
+                        bw.newLine();
+                    }
+                }
+                bw.write("");
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
