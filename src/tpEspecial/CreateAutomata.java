@@ -7,21 +7,26 @@ import java.util.List;
  */
 public class CreateAutomata {
 
-    public static State createAutomata(List<String> phrases) {
+    public static StateNDA createAutomata(List<String> phrases) {
         StateNDA head = new StateNDA();
+        head.setLabel("0");
+        int counter = 1;
         for (int i = 0; i < phrases.size(); i++) {
-            addPhrase(phrases.get(i),head);
+            counter = addPhrase(phrases.get(i),head, counter);
         }
         return head;
     }
 
-    public static void addPhrase(String phrase, State head){
+    public static int addPhrase(String phrase, State head, int counter){
         State state = head;
         for (int i = 0; i < phrase.length(); i++) {
             char character = phrase.charAt(i);
             final State transition = new StateImpl(i==phrase.length()-1);
+            transition.setLabel(String.valueOf(counter));
+            counter++;
             state.addTransition(transition, character);
             state=transition;
         }
+        return counter;
     }
 }

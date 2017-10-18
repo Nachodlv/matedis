@@ -11,7 +11,7 @@ public class StateImpl implements State {
 
     private final HashMap<Character, State> transitions;
 
-    private final boolean acceptance;
+    private boolean acceptance;
 
     private String label;
 
@@ -30,13 +30,17 @@ public class StateImpl implements State {
         return list;
     }
 
-    public void addTransition(State transition, char character){
+
+    public boolean addTransition(State transition, char character){
+        if(transitions.containsKey(character)) return false;
         transitions.put(character, transition);
+        return true;
     }
 
     public boolean isAcceptance(){
         return acceptance;
     }
+
 
     public void setLabel(String label){
         this.label = label;
@@ -45,6 +49,11 @@ public class StateImpl implements State {
     @Override
     public String getLabel() {
         return label;
+    }
+
+    @Override
+    public void setAcceptance(boolean acceptance) {
+        this.acceptance = acceptance;
     }
 
     public HashMap<Character, State> getTransitions() {
