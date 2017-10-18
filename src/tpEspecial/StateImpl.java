@@ -12,12 +12,14 @@ public class StateImpl implements State {
     private final HashMap<Character, State> transitions;
 
     private boolean acceptance;
+    private List<String> acceptanceWords;
 
     private String label;
 
     public StateImpl(boolean acceptance){
         transitions = new HashMap<>();
         this.acceptance = acceptance;
+        acceptanceWords = new ArrayList<>();
     }
 
     public State transition(char character){
@@ -51,9 +53,13 @@ public class StateImpl implements State {
         return label;
     }
 
-    @Override
-    public void setAcceptance(boolean acceptance) {
-        this.acceptance = acceptance;
+    public void setAcceptance(List<String> acceptanceWords) {
+        this.acceptance = true;
+        this.acceptanceWords.addAll(acceptanceWords);
+    }
+
+    public List<String> getAcceptanceWords() {
+        return acceptanceWords;
     }
 
     public HashMap<Character, State> getTransitions() {

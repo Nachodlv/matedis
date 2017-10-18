@@ -1,6 +1,4 @@
 <HTML>
 <BODY BGCOLOR="FFFFFF">
-Hola como estas amigo.
-Me gusta el arte. No se que mas poner.
-No sabes como me gusta comer, hola!
+hola, Hola, ola
 </BODY>

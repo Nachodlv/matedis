@@ -43,7 +43,7 @@ public class DetermineAutomaton {
         return state;
     }*/
 
-    public static  State determine(StateNDA automaton){
+    public static  StateImpl determine(StateNDA automaton){
         List<Character> keys =  automaton.getKeys();
         List<State> transitions = automaton.getTransitions();
         StateImpl deterministic = merge(keys, transitions); //q0
@@ -90,7 +90,7 @@ public class DetermineAutomaton {
 
     private static void addTransitions(State stateA, State stateB){
         if(stateA.equals(stateB)) return;
-        if(stateB.isAcceptance()) stateA.setAcceptance(true);
+        if(stateB.isAcceptance()) ((StateImpl)stateA).setAcceptance(((StateImpl)stateB).getAcceptanceWords());
         for(Map.Entry<Character,State> entry: ((StateImpl)stateB).getTransitions().entrySet()) {
             boolean result = stateA.addTransition(entry.getValue(), entry.getKey());
             if (!result){

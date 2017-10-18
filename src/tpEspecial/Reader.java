@@ -4,11 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
-public class    Reader {
+public class Reader {
 
-    public List<String> readFile(String filename, HashMap<String, Integer> hashMap){
+    public static Map<String, Integer> readFile(String filename){
+        Map<String, Integer> hashMap = new HashMap<>();
         List<String> list = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -25,15 +26,14 @@ public class    Reader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return list;
+        return hashMap;
     }
 
-    public void readHTML(String filename, HashMap<String, Integer> words, State automata){
-        State currentState = automata;
+    public static void readHTML(String filename, HashMap<String, Integer> words, StateImpl automata){
+        StateImpl currentState = automata;
         try {
             FileReader fileReader = new FileReader(filename);
             int read = fileReader.read();
-            String word = "";
             boolean ignoring = false;
             while (read != -1){
                 if(read == '<')ignoring = true;
@@ -48,16 +48,15 @@ public class    Reader {
                 }
 
                 char character = (char) read;
-                word += character;
-
-                currentState = currentState.transition(character);
+                currentState = (StateImpl) currentState.transition(character);
                 if(currentState == null){
                     currentState = automata;
-                    word = "";
                 }
                 if(currentState.isAcceptance()){
-                    Integer value = words.put(word, 1);
-                    if(value != null)words.put(word, value + 1);
+                    for(String word:currentState.getAcceptanceWords()){
+                        Integer value = words.get(word);
+                        words.put(word, value + 1);
+                    }
                 }
                 read = fileReader.read();
             }
@@ -67,32 +66,23 @@ public class    Reader {
         }
     }
 
-    public void readHTML1(String filename, HashMap<String, Integer> words, State automata){
-        int random = (int)(Math.random()*10);
-        for (String word : words.keySet()) {
-            System.out.println(word+": "+random);
-            words.put(word,random);
-            random = (int)(Math.random()*10);
-        }
-    }
 
-    public void writeIndexFile(File directory, String filenameTxt){
-        HashMap<String, Integer> words = new HashMap<>();
-        final List<String> wordsList = readFile(filenameTxt, words);
-        final StateNDA automata = CreateAutomata.createAutomata(wordsList);
-        final State automataDetermined = DetermineAutomaton.determine(automata);
+    public static void writeIndexFile(File directory, String filenameTxt, Map<String, Integer> words, StateImpl automataDetermined){
+
         List<HashMap<String, Integer>> hashMapList = new ArrayList<>();
         final File[] files = directory.listFiles();
-        for (int i = 0; i < files.length; i++) {
+
+        assert files != null;
+        for (File file : files) {
             HashMap<String, Integer> wordsInFile = new HashMap<>(words);//para que no cambie words
-            readHTML("src/tpEspecial/"+directory.getName()+"/"+files[i].getName(),wordsInFile,automataDetermined);
+            readHTML("src/tpEspecial/" + directory.getName() + "/" + file.getName(), wordsInFile, automataDetermined);
             hashMapList.add(wordsInFile);
         }
 
         FileWriter fw;
         BufferedWriter bw;
         try {
-            fw = new FileWriter("src/tpEspecial/index.txt");
+            fw = new FileWriter("src/tpEspecial/htmlDirectory/index.txt");
             bw = new BufferedWriter(fw);
             for (String word : words.keySet()){
                 bw.write(word);

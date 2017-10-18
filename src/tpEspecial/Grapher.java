@@ -14,7 +14,7 @@ public class Grapher {
     public static void graphNDA(State automata){
         State currentAutomata = automata;
         try {
-            BufferedWriter bw= new BufferedWriter(new FileWriter("src/tpEspecial/grafoNDA.txt"));
+            BufferedWriter bw= new BufferedWriter(new FileWriter("src/tpEspecial/htmlDirectory/grafoNDA.txt"));
             bw.write("digraph{\nrankdir = \"LR\";\n");
             List<State> firstTransitions = ((StateNDA)automata).getTransitions();
             List<Character> firstKeys = ((StateNDA)automata).getKeys();
@@ -66,7 +66,7 @@ public class Grapher {
 
     public static void graphDA(State automata){
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("src/tpEspecial/grafoDA.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("src/tpEspecial/htmlDirectory/grafoDA.txt"));
             bw.write("digraph{\nrankdir = \"LR\";\n");
 
             List<String> transitions = new ArrayList<>();

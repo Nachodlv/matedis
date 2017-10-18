@@ -1,33 +1,29 @@
 package tpEspecial;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        Reader reader = new Reader();
-        List<String> list = reader.readFile("src/tpEspecial/words.txt", new HashMap<>());
-        StateNDA initial = CreateAutomata.createAutomata(list);
-        System.out.println("Nice");
 
-        /*State deterministic = DetermineAutomaton.determine(initial);
-        System.out.println("Not really");
-        */
+        final String SEARCH_TEXT = ("src/tpEspecial/search.txt");
+
+        final Map<String, Integer> words = Reader.readFile(SEARCH_TEXT);
+
+        final StateNDA automataNotDetermined = CreateAutomata.createAutomata(words);
+        Grapher.graphNDA(automataNotDetermined);
+
+        final StateImpl automataDetermined = DetermineAutomaton.determine(automataNotDetermined);
+
+
+        File directory = new File("src/tpEspecial/htmlDirectory");
+        Reader.writeIndexFile(directory,"src/tpEspecial/search.txt", words, automataDetermined);
+
+        Grapher.graphDA(automataDetermined);
 
         //dot -Tjpg grafoNDA.txt -o ejemplo.jpg --> transform grafoNDA.txt to a .jpg
-        new Grapher().graphNDA(initial);
-        State determinado = DetermineAutomaton.determine(initial);
-        new Grapher().graphDA(determinado);
-
-        testWriteIndexFile();
-
+        
     }
 
-    public static void testWriteIndexFile(){
-        Reader reader = new Reader();
-        File directory = new File("src/tpEspecial/htmlDirectory");
-        reader.writeIndexFile(directory,"src/tpEspecial/search.txt");
-    }
 }

@@ -25,6 +25,4 @@ public interface State {
 
     public String getLabel();
 
-    public void setAcceptance(boolean acceptance);
-
 }

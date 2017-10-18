@@ -55,7 +55,6 @@ public class StateNDA implements State{
         return label;
     }
 
-    @Override
     public void setAcceptance(boolean acceptance) {
         this.acceptance = acceptance;
     }
