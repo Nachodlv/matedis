@@ -1,6 +1,4 @@
 <HTML>
 <BODY BGCOLOR="FFFFFF">
-Hola.
-Me gusta el arte. No se que mas poner.
-hola.
+autobus
 </BODY>

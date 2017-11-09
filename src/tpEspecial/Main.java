@@ -2,6 +2,7 @@ package tpEspecial;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
 
@@ -16,6 +17,7 @@ public class Main {
 
         final StateImpl automataDetermined = DetermineAutomaton.determine(automataNotDetermined);
 
+        System.out.println("Automata created");
 
         File directory = new File("src/tpEspecial/htmlDirectory");
         Reader.writeIndexFile(directory,"src/tpEspecial/search.txt", words, automataDetermined);

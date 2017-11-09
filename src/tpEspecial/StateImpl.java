@@ -55,7 +55,11 @@ public class StateImpl implements State {
 
     public void setAcceptance(List<String> acceptanceWords) {
         this.acceptance = true;
-        this.acceptanceWords.addAll(acceptanceWords);
+        for(String word:acceptanceWords){
+            if(!this.acceptanceWords.contains(word)){
+                this.acceptanceWords.add(word);
+            }
+        }
     }
 
     public List<String> getAcceptanceWords() {

@@ -1,9 +1,6 @@
 package tpEspecial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Dwape on 10/6/17.
@@ -48,9 +45,10 @@ public class DetermineAutomaton {
         List<State> transitions = automaton.getTransitions();
         StateImpl deterministic = merge(keys, transitions); //q0
         deterministic.setLabel("0");
-        for(Map.Entry<Character,State> entry: deterministic.getTransitions().entrySet()){
+        /*for(Map.Entry<Character,State> entry: deterministic.getTransitions().entrySet()){
             determine((StateImpl) entry.getValue(), deterministic, entry.getKey());
-        }
+        }*/
+        determine(deterministic, deterministic);
 
         return deterministic;
     }
@@ -88,9 +86,21 @@ public class DetermineAutomaton {
         return state;
     }
 
+    /*private static void addTransitions(State stateA, State stateB, List<Character> visited){
+        if(stateA.equals(stateB)) return;
+        if(stateB.isAcceptance())((StateImpl)stateA).setAcceptance(((StateImpl)stateB).getAcceptanceWords());
+        for(Map.Entry<Character,State> entry: ((StateImpl)stateB).getTransitions().entrySet()) {
+            boolean result = stateA.addTransition(entry.getValue(), entry.getKey());
+            if (!result && !visited.contains(entry.getKey())){
+                visited.add(entry.getKey());
+                addTransitions(stateA.transition(entry.getKey()), entry.getValue(), visited);
+            }
+        }
+    }*/
+
     private static void addTransitions(State stateA, State stateB){
         if(stateA.equals(stateB)) return;
-        if(stateB.isAcceptance()) ((StateImpl)stateA).setAcceptance(((StateImpl)stateB).getAcceptanceWords());
+        if(stateB.isAcceptance())((StateImpl)stateA).setAcceptance(((StateImpl)stateB).getAcceptanceWords());
         for(Map.Entry<Character,State> entry: ((StateImpl)stateB).getTransitions().entrySet()) {
             boolean result = stateA.addTransition(entry.getValue(), entry.getKey());
             if (!result){
@@ -99,31 +109,21 @@ public class DetermineAutomaton {
         }
     }
 
-    private static void determine(StateImpl state, State head, char character){
-        for(Map.Entry<Character,State> entry: state.getTransitions().entrySet()){
-            determine((StateImpl) entry.getValue(), head, entry.getKey());
+    private static void determine(StateImpl state, State head){
+        Queue<StateImpl> queue = new LinkedList<>();
+        List<StateImpl> visited = new ArrayList<>();
+        queue.add(state);
+        while (!queue.isEmpty()){
+            StateImpl currentState = queue.remove();
+            if(!visited.contains(currentState)) {
+                addTransitions(currentState, head);
+                visited.add(currentState);
+                for (Map.Entry<Character, State> entry : currentState.getTransitions().entrySet()) {
+                    queue.add((StateImpl) entry.getValue());
+                }
+            }
         }
-        addTransitions(state, head);
-    }
-
-
-
-
-
-   /* private static State determine(State automaton, StateNDA head, StateImpl deterministic){
-        HashMap<Character, State> transitions = getTransitions(automaton, head);
-        StateImpl newState = new StateImpl();
 
     }
-
-    private static HashMap<Character, State> addTransitions(StateImpl automaton, S head){
-        HashMap<Character, State> list = ((StateImpl) automaton).getTransitions();
-        for (int i = 0; i < head.getKeys().size(); i++) {
-           automaton.addTransition(head.getTransitions().get(i), head.getKeys().get(i));
-        }
-        return list;
-    }*/
-
-
 
 }
