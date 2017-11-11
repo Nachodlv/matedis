@@ -67,7 +67,7 @@ public class Reader {
     }
 
 
-    public static void writeIndexFile(File directory, String filenameTxt, Map<String, Integer> words, StateImpl automataDetermined){
+    public static void writeIndexFile(File directory, String indexPath, Map<String, Integer> words, StateImpl automataDetermined){
 
         List<HashMap<String, Integer>> hashMapList = new ArrayList<>();
         final File[] files = directory.listFiles();
@@ -75,14 +75,14 @@ public class Reader {
         assert files != null;
         for (File file : files) {
             HashMap<String, Integer> wordsInFile = new HashMap<>(words);//para que no cambie words
-            readHTML("src/tpEspecial/" + directory.getName() + "/" + file.getName(), wordsInFile, automataDetermined);
+            readHTML(file.getAbsolutePath(), wordsInFile, automataDetermined);
             hashMapList.add(wordsInFile);
         }
 
         FileWriter fw;
         BufferedWriter bw;
         try {
-            fw = new FileWriter("src/tpEspecial/htmlDirectory/index.txt");
+            fw = new FileWriter(indexPath);
             bw = new BufferedWriter(fw);
             for (String word : words.keySet()){
                 bw.write(word);

@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Automata created");
 
         File directory = new File("src/tpEspecial/htmlDirectory");
-        Reader.writeIndexFile(directory,"src/tpEspecial/search.txt", words, automataDetermined);
+        Reader.writeIndexFile(directory,"src/tpEspecial/index.txt", words, automataDetermined);
 
         Grapher.graphDA(automataDetermined);
 

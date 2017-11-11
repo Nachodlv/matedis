@@ -1,2 +1,5 @@
-autom
+automovil
 mama
+auto
+autobus
+ma
