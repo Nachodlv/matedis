@@ -7,9 +7,7 @@ import java.util.List;
  */
 public interface State {
 
-    public State transition(char character);
-
-    public List<State> transitions(char character);
+    State transition(char character);
 
     /**
      *
@@ -17,12 +15,12 @@ public interface State {
      * @param character
      * @return false if the character is already in the transitions, true if the adding was successful
      */
-    public boolean addTransition(State transition, char character);
+    boolean addTransition(State transition, char character);
 
-    public boolean isAcceptance();
+    boolean isAcceptance();
 
-    public void setLabel(String label);
+    void setLabel(String label);
 
-    public String getLabel();
+    String getLabel();
 
 }

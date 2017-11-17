@@ -1,6 +1,10 @@
 <HTML>
+<HEAD>This is the title</HEAD>
 <BODY BGCOLOR="FFFFFF">
-mama
-automovil
-papa
+<Test>
+
+</Test>
+
+This program seems to work as intended.
+
 </BODY>
