@@ -1,0 +1,38 @@
+digraph{
+rankdir = "LR";
+node[shape = circle]0[label="0"];
+node[shape = circle]1[label="1"];
+node[shape = circle]7[label="7"];
+node[shape = circle]12[label="12"];
+node[shape = circle]26[label="26"];
+node[shape = circle]30[label="30"];
+node[shape = circle]34[label="34"];
+node[shape = circle]38[label="38"];
+node[shape = circle]45[label="45"];
+node[shape = circle]52[label="52"];
+node[shape = circle]60[label="60"];
+node[shape = circle]69[label="69"];
+node[shape = circle]75[label="75"];
+node[shape = circle]83[label="83"];
+node[shape = circle]85[label="85"];
+node[shape = circle]90[label="90"];
+node[shape = circle]94[label="94"];
+node[shape = circle]98[label="98"];
+0 -> 1 [label="e"];
+0 -> 7 [label="w"];
+0 -> 12 [label="t"];
+0 -> 26 [label="w"];
+0 -> 30 [label="m"];
+0 -> 34 [label="m"];
+0 -> 38 [label="t"];
+0 -> 45 [label="p"];
+0 -> 52 [label="r"];
+0 -> 60 [label="c"];
+0 -> 69 [label="s"];
+0 -> 75 [label="a"];
+0 -> 83 [label="s"];
+0 -> 85 [label="t"];
+0 -> 90 [label="T"];
+0 -> 94 [label="w"];
+0 -> 98 [label="d"];
+}

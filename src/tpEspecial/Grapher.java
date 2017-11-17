@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Grapher {
-    //int label = 0;
 
     public static void graphNDA(State automata){
-        State currentAutomata = automata;
         try {
-            BufferedWriter bw= new BufferedWriter(new FileWriter("src/tpEspecial/grafoNDA.txt"));
+            BufferedWriter bw= new BufferedWriter(new FileWriter("src/tpEspecial/textFiles/grafoNDA.txt")); //needs to be parametrized
             bw.write("digraph{\nrankdir = \"LR\";\n");
             List<State> firstTransitions = ((StateNDA)automata).getTransitions();
             List<Character> firstKeys = ((StateNDA)automata).getKeys();
@@ -36,28 +34,28 @@ public class Grapher {
     }
 
     private static String connectNodes(State stateA, State stateB, char connect, String sentence){
-        for(Map.Entry<Character,State> entry: ((StateImpl)stateB).getTransitions().entrySet()){
-            return connectNodes(stateB,entry.getValue(), entry.getKey(), sentence.concat(transition(stateA, stateB, connect)));
-        }
+        for(Map.Entry<Character,State> entry: ((StateImpl)stateB).getTransitions().entrySet())
+            connectNodes(stateB,entry.getValue(), entry.getKey(), sentence.concat(transition(stateA, stateB, connect)));
+
         return sentence.concat(transition(stateA, stateB, connect));
     }
 
     private static String writeAllNodes(State state, String sentence){
         HashMap<Character, State> hashMap = ((StateImpl) state).getTransitions();
-        for(State nextState: hashMap.values()){
-            return writeAllNodes(nextState, sentence.concat(writeNode(nextState)));
-        }
-         return sentence;
+        for(State nextState: hashMap.values())
+            writeAllNodes(nextState, sentence.concat(writeNode(nextState)));
+
+        return sentence;
     }
 
     private static String writeNode(State automata){
-        //automata.setLabel(String.valueOf(label));
-        //label++;
-        if(automata.isAcceptance()){
-            return "node[shape = doublecircle]" + automata.getLabel() + "[label=\"" + automata.getLabel() + "\"];\n";
-        }else{
-            return "node[shape = circle]" + automata.getLabel() + "[label=\"" + automata.getLabel() + "\"];\n";
-        }
+        StringBuilder string = new StringBuilder(50);
+        String label = automata.getLabel();
+        if(automata.isAcceptance())
+            string.append("node[shape = doublecircle]");
+        else
+            string.append("node[shape = circle]");
+        return string.append(label).append("[label=\"").append(label).append("\"];\n").toString();
     }
 
     private static String transition(State a, State b, Character character){
@@ -66,15 +64,12 @@ public class Grapher {
 
     public static void graphDA(State automata){
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("src/tpEspecial/grafoDA.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("src/tpEspecial/textFiles/grafoDA.txt")); //needs to be parametrized
             bw.write("digraph{\nrankdir = \"LR\";\n");
 
             List<String> transitions = new ArrayList<>();
             writeAllNodesForDA(automata, bw, new ArrayList<>(), transitions, automata);
             addAllTransitions(transitions, bw);
-            //bw.write(nodes);
-            //bw.write(connectNodesForDA((StateImpl) automata, "", automata, new ArrayList<>()));
-
 
             bw.write("}");
             bw.close();

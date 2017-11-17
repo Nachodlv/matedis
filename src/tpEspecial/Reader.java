@@ -10,14 +10,12 @@ public class Reader {
 
     public static Map<String, Integer> readFile(String filename){
         Map<String, Integer> hashMap = new HashMap<>();
-        List<String> list = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             String line = br.readLine();
 
             while(line!=null){
                 if(!line.equals("")) {
-                    list.add(line);
                     hashMap.put(line, 0);
                 }
                 line = br.readLine();
@@ -74,7 +72,7 @@ public class Reader {
 
         assert files != null;
         for (File file : files) {
-            HashMap<String, Integer> wordsInFile = new HashMap<>(words);//para que no cambie words
+            HashMap<String, Integer> wordsInFile = new HashMap<>(words);
             readHTML(file.getAbsolutePath(), wordsInFile, automataDetermined);
             hashMapList.add(wordsInFile);
         }

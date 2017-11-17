@@ -1,6 +1,0 @@
-This
-program
-si
-work
-correctly
-eems t
