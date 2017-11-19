@@ -1,6 +1,7 @@
 package tpEspecial;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ import java.util.Map;
 
 public class Grapher {
 
-    public static void graphNDA(State automata){
+    public static void graphNDA(State automata, String fileName){
         try {
-            BufferedWriter bw= new BufferedWriter(new FileWriter("src/tpEspecial/textFiles/grafoNDA.txt")); //needs to be parametrized
+            BufferedWriter bw= new BufferedWriter(new FileWriter(fileName)); //needs to be parametrized
             bw.write("digraph{\nrankdir = \"LR\";\n");
             List<State> firstTransitions = ((StateNDA)automata).getTransitions();
             List<Character> firstKeys = ((StateNDA)automata).getKeys();
@@ -62,9 +63,9 @@ public class Grapher {
         return a.getLabel() + " -> " + b.getLabel() + " [label=\"" + character + "\"];\n";
     }
 
-    public static void graphDA(State automata){
+    public static void graphDA(State automata, String fileName){
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("src/tpEspecial/textFiles/grafoDA.txt")); //needs to be parametrized
+            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName)); //needs to be parametrized
             bw.write("digraph{\nrankdir = \"LR\";\n");
 
             List<String> transitions = new ArrayList<>();

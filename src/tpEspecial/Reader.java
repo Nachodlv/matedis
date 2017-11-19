@@ -70,12 +70,12 @@ public class Reader {
         List<HashMap<String, Integer>> hashMapList = new ArrayList<>();
         final File[] files = directory.listFiles();
 
-        assert files != null;
-        for (File file : files) {
-            HashMap<String, Integer> wordsInFile = new HashMap<>(words);
-            readHTML(file.getAbsolutePath(), wordsInFile, automataDetermined);
-            hashMapList.add(wordsInFile);
-        }
+        if(files != null)
+            for (File file : files) {
+                HashMap<String, Integer> wordsInFile = new HashMap<>(words);
+                readHTML(file.getAbsolutePath(), wordsInFile, automataDetermined);
+                hashMapList.add(wordsInFile);
+            }
 
         FileWriter fw;
         BufferedWriter bw;
